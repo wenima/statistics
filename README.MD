@@ -6,6 +6,7 @@ tagged with *Statistics* as well as coding challenges from other sources.
 # Codewars coding challenges:
 
 ## kyu7
+* Distance from the average
 
 ## kyu6
 
