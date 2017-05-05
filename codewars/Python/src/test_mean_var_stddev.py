@@ -6,6 +6,13 @@ import pytest
 
 TEST = [
     [[0, 0.125], [1, 0.375], [2, 0.375], [3, 0.125]], [1.5, 0.75, 0.8660254037844386]),
+    ([[0.0, 0.125], [1.0, 0.375], [2.0, 0.375], [3, 0.125]], [1.5, 0.75, 0.8660254037844386]),
+]
+
+INVALID = [
+    ([[0, 0.425], [1, 0.375], [2, 0.375], [3, 0.125]], "It's not a valid distribution"),
+    ([[0.1, 0.425], [1.1, 0.375], [2, 0.375], [3, 0.125]], "All the variable values should be integers"),
+    ([[0.1, 0.425], [1.1, 0.375], [2, 0.375], [3, 0.125]], "It's not a valid distribution and furthermore, one or more variable value are not integers"),
 ]
 
 
