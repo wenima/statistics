@@ -21,3 +21,10 @@ def test_stats_disc_distr(ll, result):
     """Test that function returns correct mean, var and stddev."""
     from mean_var_stddev import stats_disc_distr
     assert stats_disc_distr(ll) == result
+
+
+@pytest.mark.parametrize("ll, result", INVALID)
+def test_sanitize_input(ll, result):
+    """Test that function returns correct warning based on invalid input."""
+    from mean_var_stddev import sanitize_input
+    assert sanitize_input(ll) == result
