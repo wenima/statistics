@@ -9,6 +9,7 @@ tagged with *Statistics* as well as coding challenges from other sources.
 * Distance from the average
 
 ## kyu6
+* Mean, Variance and Standard Deviation of a Probability Distribution for Discrete Variables
 
 
 ## kyu5
