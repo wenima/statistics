@@ -9,6 +9,9 @@ def stats_disc_distr(ll):
     """Return a list with 3 values, mean, var and standard deviation based on the input.
     The input is a list of lists and each list contains the value of a variable x
     and it's probability P(x)."""
+    out = sanitize_input(ll)
+    if out:
+        return out
     avg = mean([l[0] for l in ll])
     variance = sum([(l[0] - avg) ** 2 * l[1] for l in ll])
     stddev = sqrt(variance)
