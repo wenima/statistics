@@ -10,6 +10,7 @@ tagged with *Statistics* as well as coding challenges from other sources.
 
 ## kyu6
 * Mean, Variance and Standard Deviation of a Probability Distribution for Discrete Variables
+* Statistics in Kata 1: OR case - Unfair dice
 
 
 ## kyu5
