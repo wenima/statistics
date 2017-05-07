@@ -2,11 +2,13 @@
 
 
 def mutually_exclusive(d6, n1, n2):
-    """Return 2 strings, the first containing the probability of either n1 or n2
-    being rolled and the second stating the expected outcome or issue with the input."""
+    """Return a string containing the probability of either n1 or n2 being rolled
+    or None if input is invalid."""
     out = sanitize_input(d6)
     if out:
-        return (None, out)
+        return None
+    p = round(sum([side[1] for side in d6 if side[0] in [n1, n2]]), 2)
+    return '{:.2f}'.format(p)
 
 
 def sanitize_input(d6):
