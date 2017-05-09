@@ -11,7 +11,7 @@ TEST = [
     ([["red","blue","yellow","green","red","blue","yellow","green","red","blue"],["red","red"],False], 0.067),
 ]
 
-@pytest.mark.parametrize("d6, n1, n2, result", TEST)
+@pytest.mark.parametrize("balls, result", TEST)
 def test_ball_probability(balls, result):
     """Test that function returns correct probability."""
     from ball_bags_and import ball_probability
