@@ -6,11 +6,8 @@ def ball_probability(balls):
     """Return a float representing the probability of drawing 2 balls out of a bag
     with 10 balls matching the color of 2 given balls."""
     d = defaultdict(int)
-    bag = balls[0]
-    given_balls = balls[1]
-    putback = balls[2]
-    ball1 = given_balls[0]
-    ball2 = given_balls[1]
+    bag, given_balls, putback = balls
+    ball1, ball2 = given_balls
 
     for ball in bag:
         d[ball] += 1
