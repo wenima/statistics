@@ -5,7 +5,7 @@ import pytest
 
 TEST = [
     (['Hello', 'world'], 0),
-    (['Hi, world'], 2.25),
+    (['Hi', 'world'], 2.25),
 ]
 
 @pytest.mark.parametrize("words, result", TEST)
