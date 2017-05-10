@@ -9,7 +9,7 @@ TEST = [
         ('Distance:', 117.1, 'Meters', 'Sensor 5 malfunction =>lorimar'),
         ('Distance:', 123.96, 'Meters', 'Sensor 5 malfunction =>lorimar'),
         ('Distance:', 117.17, 'Meters', 'Sensor 5 malfunction =>lorimar')
-        ], (118.6275, 3.5779),
+        ], (118.6275, 3.5779)),
     ([  ('Distance:', 295.68, 'Meters', 'Sensor 5 malfunction =>lorimar'),
         ('Distance:', 294.78, 'Meters', 'Sensor 5 malfunction =>lorimar'),
         ('Distance:', 298.21, 'Meters', 'Sensor 5 malfunction =>lorimar'),
@@ -38,4 +38,4 @@ TEST = [
 def test_sensor_analysis(sensor_data, result):
     """Test that function returns correct mean from distance and stddev."""
     from mean_stddev_of_distance import sensor_analysis
-    assert sensor_analysis(ll) == result
+    assert sensor_analysis(sensor_data) == result
