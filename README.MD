@@ -18,7 +18,7 @@ tagged with *Statistics* as well as coding challenges from other sources.
 
 
 ## kyu5
-
+* Probabilities for Sums in Rolling Cubic Dice
 
 ## kyu4
 
