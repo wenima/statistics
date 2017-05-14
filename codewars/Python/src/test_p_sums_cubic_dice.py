@@ -14,4 +14,4 @@ TEST = [
 def test_rolldice_sum_prob(target_sum, no_of_dice, result):
     """Test that function returns correct tuple of intercept and slope."""
     from p_sums_cubic_dice import rolldice_sum_prob
-    assert rolldice_sum_prob(target_sum, no_of_dice) == result
+    assert rolldice_sum_prob(target_sum, no_of_dice) == pytest.approx(result)
