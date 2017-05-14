@@ -10,3 +10,8 @@ def reg_sum_hits(no_of_dice, sides):
     for sum_roll in range(no_of_dice, no_of_dice * sides + 1):
         hits.append([sum_roll, len([pr for pr in product(die, repeat=no_of_dice) if sum(pr) == sum_roll])])
     return hits
+
+from collections import Counter
+
+def reg_sum_hits_pythonic(n,s):
+    return sorted([k,v] for k,v in Counter(map(sum,product(range(1,s+1),repeat=n))).items())

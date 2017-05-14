@@ -25,3 +25,9 @@ def test_reg_sum_hits(no_of_dice, sides, result):
     """Test that function returns correct tuple of intercept and slope."""
     from tracking_hits_different_dice import reg_sum_hits
     assert reg_sum_hits(no_of_dice, sides) == result
+
+@pytest.mark.parametrize("no_of_dice, sides, result", TEST)
+def test_reg_sum_hits_pythonic(no_of_dice, sides, result):
+    """Test that function returns correct tuple of intercept and slope."""
+    from tracking_hits_different_dice import reg_sum_hits_pythonic
+    assert reg_sum_hits_pythonic(no_of_dice, sides) == result
