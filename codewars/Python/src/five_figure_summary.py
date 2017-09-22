@@ -1,6 +1,7 @@
 """Solution for https://www.codewars.com/kata/intro-to-statistics-part-1-a-five-figure-summary/python."""
 
 from math import modf
+from numbers import Real
 
 class StatisticalSummary(object):
     """Class which contains a method to return six figure version of the five number summary
@@ -8,8 +9,7 @@ class StatisticalSummary(object):
     """
 
     def __init__(self, seq):
-        self.seq = seq
-        self.seq = sorted([x for x in seq])
+        self.seq = sorted([x for x in seq if isinstance(x, Real)])
         self.n = len(self.seq)
 
     def five_figure_summary(self, precision=None):
@@ -19,6 +19,9 @@ class StatisticalSummary(object):
         low = min(self.seq)
         high = max(self.seq)
 
+        if precision:
+            return (round(self.n, precision), round(low, precision), round(high, precision), round(self._get_quartile(25), precision), round(self._get_quartile(50), precision)
+                    , round(self._get_quartile(75), precision))
         return (self.n, low, high, self._get_quartile(25), self._get_quartile(50), self._get_quartile(75))
 
     def _get_quartile(self, q):
