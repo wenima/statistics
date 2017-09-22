@@ -21,6 +21,7 @@ tagged with *Statistics* as well as statistics coding challenges from other sour
 * Probabilities for Sums in Rolling Cubic Dice
 * Tracking Hits for Different Sum Values for Different Kinds of Dice
 * Intro to Statistics - Part 1: A Five figure summary
+* Intro to Statistics - Part 2: Boxplots
 
 ## kyu4
 
