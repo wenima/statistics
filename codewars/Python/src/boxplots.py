@@ -46,4 +46,4 @@ class StatisticalSummary(object):
         """
 
         if plot == 'BOXPLOT':
-            return self._percentile(.25), self._percentile(.5), self._percentile(.75)
+            return 'Sample', self._percentile(.25), self._percentile(.5), self._percentile(.75)
