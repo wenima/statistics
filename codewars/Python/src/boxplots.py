@@ -39,11 +39,20 @@ class StatisticalSummary(object):
 
         plot=BOXPLOT: Return Q1, median, upper quartile Q3
         plot=BOX_AND_WHISKER: and whisker plot: Return EL, Q1, median, Q3, EL
-        plot=BOX_AND_DECILE_WHISKER: Return x, D1, Q1, median, D9, y where x are
+        plot=BOX_AND_DECILE_WHISKER: Return x, D1, Q1, median, Q3, D9, y where x are
         all values below D1 and y are all values above D9
         plot=TUKEY_BOX_AND_WHISKER: Return x, OL, Q1, median, Q3, OU, y where x are
         all values below QL and y are all values above OU
         """
 
+        q1, median, q3 = self._percentile(.25), self._percentile(.5), self._percentile(.75)
+        d1, d9 = self._percentile(.1), self._percentile(.9)
+        el, eu = min(self.seq), max(self.seq)
+
+
         if plot == 'BOXPLOT':
-            return 'Sample', self._percentile(.25), self._percentile(.5), self._percentile(.75)
+            return 'Sample', q1, median, q3
+        elif plot == 'BOX_AND_WHISKER':
+            return 'Sample', el, q1, median, q3, eu
+        elif plot == 'BOX_AND_DECILE_WHISKER':
+            return 'Sample', self.seq[:ceil((len(self.seq) - 1) * .1 )], d1, q1, median, q3, d9, self.seq[ceil((len(self.seq) - 1) * .9):]
