@@ -3,6 +3,8 @@
 from math import ceil, floor
 from numbers import Real
 
+BOXPLOT = 'BOXPLOT'
+
 class StatisticalSummary(object):
     """Class which contains a various statistical methods.
 
@@ -41,3 +43,7 @@ class StatisticalSummary(object):
         all values below D1 and y are all values above D9
         plot=TUKEY_BOX_AND_WHISKER: Return x, OL, Q1, median, Q3, OU, y where x are
         all values below QL and y are all values above OU
+        """
+
+        if plot == 'BOXPLOT':
+            return self._percentile(.25), self._percentile(.5), self._percentile(.75)
