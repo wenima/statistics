@@ -22,13 +22,13 @@ PERCENTILES = [
     (0.75, 20),
     (0.1, 6.9),
     (.9, 26.1),
-]
+]    
 
 BOXPLOTS = [
     (BOXPLOT, SEQUENCE, ('Sample', 12.75, 16, 20)),
-    # (BOX_AND_WHISKER, SEQUENCE, ('Sample', 1, 12.75, 16, 20, 32)),
-    # (BOX_AND_DECILE_WHISKER, SEQUENCE, ('Sample', [1, 2, 3, 4, 5, 6], 6.9, 12.75, 16, 20, 26.1, [27, 28, 29, 30, 31, 32])),
-    # (TUKEY_BOX_AND_WHISKER, SEQUENCE, ('Sample', [1, 2, 3, 4, 5], 6, 12.75, 16, 20, 26, [27, 28, 29, 30, 31, 32])),
+    (BOX_AND_WHISKER, SEQUENCE, ('Sample', 1, 12.75, 16, 20, 32)),
+    (BOX_AND_DECILE_WHISKER, SEQUENCE, ('Sample', [1, 2, 3, 4, 5, 6], 6.9, 12.75, 16, 20, 26.1, [27, 28, 29, 30, 31, 32])),
+    (TUKEY_BOX_AND_WHISKER, SEQUENCE, ('Sample', [1, 2, 3, 4, 5], 6, 12.75, 16, 20, 26, [27, 28, 29, 30, 31, 32])),
 ]
 
 
