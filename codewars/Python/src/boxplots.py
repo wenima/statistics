@@ -2,6 +2,7 @@
 
 from math import ceil, floor
 from numbers import Real
+from bisect import bisect_left, bisect_right
 
 BOXPLOT = 'BOXPLOT'
 
@@ -33,6 +34,13 @@ class StatisticalSummary(object):
         k = (len(seq) - 1) * p; f = floor(k); c = ceil(k)
         return seq[int(k)] if f == c else seq[int(f)] * (c-k) + seq[int(c)] * (k-f)
 
+    def _get_outlier_boundary(self, boundary=None, direction='left'):
+        """Return the index of the outlier boundary given direction."""
+        if direction == 'right':
+            return bisect_right(self.seq, boundary)
+        elif direction == 'left':
+            return bisect_left(self.seq, boundary)
+
     def boxplot(self, plot=BOXPLOT, precision=None):
         """Return a tuple of values to be consumed by a function to draw a type
         of Boxplot.
@@ -48,6 +56,9 @@ class StatisticalSummary(object):
         q1, median, q3 = self._percentile(.25), self._percentile(.5), self._percentile(.75)
         d1, d9 = self._percentile(.1), self._percentile(.9)
         el, eu = min(self.seq), max(self.seq)
+        iqr = q3 - q1
+        ol = ceil((median - 1.5 * iqr))
+        ou = floor((median + 1.5 * iqr))
 
 
         if plot == 'BOXPLOT':
@@ -56,3 +67,7 @@ class StatisticalSummary(object):
             return 'Sample', el, q1, median, q3, eu
         elif plot == 'BOX_AND_DECILE_WHISKER':
             return 'Sample', self.seq[:ceil((len(self.seq) - 1) * .1 )], d1, q1, median, q3, d9, self.seq[ceil((len(self.seq) - 1) * .9):]
+        elif plot == 'TUKEY_BOX_AND_WHISKER':
+            ou_idx = self._get_outlier_boundary(boundary=ou, direction='right')
+            ol_idx = self._get_outlier_boundary(boundary=ol, direction='left')
+            return 'Sample', self.seq[:ol_idx], ol, q1, median, q3, ou, self.seq[ou_idx:]
