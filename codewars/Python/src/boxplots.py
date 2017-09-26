@@ -23,25 +23,36 @@ class StatisticalSummary(object):
     """
 
     def __init__(self, seq):
-        self.seq = sorted([x for x in seq if isinstance(x, Real)])
-        self.n = len(self.seq)
+        seq = list(seq)
+        self.labels = []
+        try:
+            self.labels = set([x[0] for x in seq])
+        except TypeError:
+            self.seq = sorted([x for x in seq if isinstance(x, Real)])
+            self.n = len(self.seq)
+        if len(self.labels) > 1:
+            self.sequences = list(self.labels)
+            self.sequences.sort()
+            self.seq = []
+            for label in self.sequences:
+                self.seq.append((label, [x[1] for x in seq if x[0] == label and isinstance(x[1], Real)]))
 
-    def _percentile(self, p):
+    def _percentile(self, p, seq):
         """Return the boundary between the given quartile of sorted sequence of
         valid values.
         """
-        seq = self.seq
         k = (len(seq) - 1) * p; f = floor(k); c = ceil(k)
         return seq[int(k)] if f == c else seq[int(f)] * (c-k) + seq[int(c)] * (k-f)
 
-    def _get_outlier_boundary(self, boundary=None, direction='left'):
+    def _get_outlier_boundary(self, seq, boundary=None, direction='left'):
         """Return the index of the outlier boundary given direction."""
+        print(seq, boundary)
         if direction == 'right':
-            return bisect_right(self.seq, boundary)
+            return bisect_right(seq, boundary)
         elif direction == 'left':
-            return bisect_left(self.seq, boundary)
+            return bisect_left(seq, boundary)
 
-    def boxplot(self, plot=BOXPLOT, precision=None):
+    def _get_boxplot_values(self, seq, plot=BOXPLOT, identifier='Sample'):
         """Return a tuple of values to be consumed by a function to draw a type
         of Boxplot.
 
@@ -53,21 +64,34 @@ class StatisticalSummary(object):
         all values below QL and y are all values above OU
         """
 
-        q1, median, q3 = self._percentile(.25), self._percentile(.5), self._percentile(.75)
-        d1, d9 = self._percentile(.1), self._percentile(.9)
-        el, eu = min(self.seq), max(self.seq)
+        q1, median, q3 = self._percentile(.25, seq), self._percentile(.5, seq), self._percentile(.75, seq)
+        d1, d9 = self._percentile(.1, seq), self._percentile(.9, seq)
+        el, eu = min(seq), max(seq)
         iqr = q3 - q1
         ol = ceil((median - 1.5 * iqr))
         ou = floor((median + 1.5 * iqr))
-
 
         if plot == 'BOXPLOT':
             return 'Sample', q1, median, q3
         elif plot == 'BOX_AND_WHISKER':
             return 'Sample', el, q1, median, q3, eu
         elif plot == 'BOX_AND_DECILE_WHISKER':
-            return 'Sample', self.seq[:ceil((len(self.seq) - 1) * .1 )], d1, q1, median, q3, d9, self.seq[ceil((len(self.seq) - 1) * .9):]
+            return 'Sample', seq[:ceil((len(seq) - 1) * .1 )], d1, q1, median, q3, d9, seq[ceil((len(seq) - 1) * .9):]
         elif plot == 'TUKEY_BOX_AND_WHISKER':
-            ou_idx = self._get_outlier_boundary(boundary=ou, direction='right')
-            ol_idx = self._get_outlier_boundary(boundary=ol, direction='left')
-            return 'Sample', self.seq[:ol_idx], ol, q1, median, q3, ou, self.seq[ou_idx:]
+            ou_idx = self._get_outlier_boundary(seq, boundary=ou, direction='right')
+            ol_idx = self._get_outlier_boundary(seq, boundary=ol, direction='left')
+            print(ou_idx)
+            print(ol_idx)
+            return identifier, seq[:ol_idx], ol, q1, median, q3, ou, seq[ou_idx:]
+
+
+    def boxplot(self, plot=BOXPLOT, precision=None):
+        """Return the result of call to _get_boxplot_values and round if precision is given."""
+
+        if len(self.labels) > 1:
+            out = []
+            for seq in self.seq:
+                out.append(self._get_boxplot_values(seq[1], plot, seq[0]))
+                print(out)
+            return out
+        return self._get_boxplot_values(self.seq, plot)
