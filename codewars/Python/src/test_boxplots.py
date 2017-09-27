@@ -4,9 +4,9 @@ import pytest
 from itertools import chain
 
 BOXPLOT = 'BOXPLOT'
-BOX_AND_WHISKER = 'BOX_AND_WHISKER'
-BOX_AND_DECILE_WHISKER = 'BOX_AND_DECILE_WHISKER'
-TUKEY_BOX_AND_WHISKER = 'TUKEY_BOX_AND_WHISKER'
+BOX_AND_WHISKER = 'Box and Whisker'
+BOX_AND_DECILE_WHISKER = 'Box and Decile Whisker'
+TUKEY_BOX_AND_WHISKER = 'Tukey Box and Whisker'
 
 SEQUENCE = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -27,10 +27,10 @@ PERCENTILES = [
 ]
 
 BOXPLOTS = [
-    (BOXPLOT, SEQUENCE, ('Sample', 12.75, 16, 20)),
-    (BOX_AND_WHISKER, SEQUENCE, ('Sample', 1, 12.75, 16, 20, 32)),
-    (BOX_AND_DECILE_WHISKER, SEQUENCE, ('Sample', [1, 2, 3, 4, 5, 6], 6.9, 12.75, 16, 20, 26.1, [27, 28, 29, 30, 31, 32])),
-    (TUKEY_BOX_AND_WHISKER, SEQUENCE, ('Sample', [1, 2, 3, 4, 5], 6, 12.75, 16, 20, 26, [27, 28, 29, 30, 31, 32])),
+    (BOXPLOT, SEQUENCE, [('Sample', 12.75, 16, 20)]),
+    (BOX_AND_WHISKER, SEQUENCE, [('Sample', 1, 12.75, 16, 20, 32)]),
+    (BOX_AND_DECILE_WHISKER, SEQUENCE, [('Sample', [1, 2, 3, 4, 5, 6], 6.9, 12.75, 16, 20, 26.1, [27, 28, 29, 30, 31, 32])]),
+    (TUKEY_BOX_AND_WHISKER, SEQUENCE, [('Sample', [1, 2, 3, 4, 5], 6, 12.75, 16, 20, 26, [27, 28, 29, 30, 31, 32])]),
 ]
 
 BOXPLOTS_2D = [
