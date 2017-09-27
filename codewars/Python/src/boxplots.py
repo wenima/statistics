@@ -46,7 +46,6 @@ class StatisticalSummary(object):
 
     def _get_outlier_boundary(self, seq, boundary=None, direction='left'):
         """Return the index of the outlier boundary given direction."""
-        print(seq, boundary)
         if direction == 'right':
             return bisect_right(seq, boundary)
         elif direction == 'left':
@@ -72,16 +71,14 @@ class StatisticalSummary(object):
         ou = floor((median + 1.5 * iqr))
 
         if plot == 'BOXPLOT':
-            return 'Sample', q1, median, q3
+            return identifier, q1, median, q3
         elif plot == 'BOX_AND_WHISKER':
-            return 'Sample', el, q1, median, q3, eu
+            return identifier, el, q1, median, q3, eu
         elif plot == 'BOX_AND_DECILE_WHISKER':
-            return 'Sample', seq[:ceil((len(seq) - 1) * .1 )], d1, q1, median, q3, d9, seq[ceil((len(seq) - 1) * .9):]
+            return  identifier, seq[:ceil((len(seq) - 1) * .1 )], d1, q1, median, q3, d9, seq[ceil((len(seq) - 1) * .9):]
         elif plot == 'TUKEY_BOX_AND_WHISKER':
             ou_idx = self._get_outlier_boundary(seq, boundary=ou, direction='right')
             ol_idx = self._get_outlier_boundary(seq, boundary=ol, direction='left')
-            print(ou_idx)
-            print(ol_idx)
             return identifier, seq[:ol_idx], ol, q1, median, q3, ou, seq[ou_idx:]
 
 
@@ -91,7 +88,7 @@ class StatisticalSummary(object):
         if len(self.labels) > 1:
             out = []
             for seq in self.seq:
+                seq[1].sort()
                 out.append(self._get_boxplot_values(seq[1], plot, seq[0]))
-                print(out)
             return out
         return self._get_boxplot_values(self.seq, plot)
