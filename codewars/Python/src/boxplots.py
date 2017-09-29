@@ -27,15 +27,21 @@ class StatisticalSummary(object):
         self.labels = []
         try:
             self.labels = set([x[0] for x in seq])
-        except TypeError:
-            self.seq = sorted([x for x in seq if isinstance(x, Real)])
-            self.n = len(self.seq)
-        if len(self.labels) > 0:
             self.sequences = list(self.labels)
             self.sequences.sort()
             self.seq = []
             for label in self.sequences:
                 self.seq.append((label, [x[1] for x in seq if x[0] == label and isinstance(x[1], Real)]))
+            if not self.seq[0][1]:
+                self.seq = []
+                for label in self.sequences:
+                    for sequence in seq:
+                        label, data = sequence
+                        self.seq.append((label, [x for x in data if isinstance(x, Real)]))
+        except TypeError:
+            self.seq = sorted([x for x in seq if isinstance(x, Real)])
+            self.n = len(self.seq)
+
 
     def _percentile(self, p, seq):
         """Return the boundary between the given quartile of sorted sequence of
